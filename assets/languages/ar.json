@@ -1,0 +1,10 @@
+{
+    "somethingWentWrong": "حدث خطأ ما",
+    "noInternetConnection": "لا يوجد اتصال بالانترنت",
+    "internalServerError": "حدث خطأ في النظام",
+    "connectionTimeoutError": "انتهت صلاحية الاتصال بالانترنت",
+    "retry": "اعادة المحاولة",
+    "oops": "عفوا",
+      "chalets": "الشاليهات",
+  "expenses": "المصروفات"
+}

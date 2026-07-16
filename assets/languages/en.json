@@ -1,0 +1,10 @@
+{
+    "somethingWentWrong": "some thing went wrong",
+    "noInternetConnection": "no internet connection",
+    "internalServerError": "internal server error",
+    "connectionTimeoutError": "connection timeout error",
+    "retry": "retry",
+    "oops": "oops",
+      "chalets": "Chalets",
+  "expenses": "Expenses"
+}
