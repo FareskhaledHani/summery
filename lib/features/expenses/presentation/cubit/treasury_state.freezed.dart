@@ -55,17 +55,14 @@ extension TreasuryStatePatterns on TreasuryState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( GetTotalTreasuryLoading value)?  getTotalTreasuryLoading,TResult Function( GetTotalTreasurySuccess value)?  getTotalTreasurySuccess,TResult Function( GetTotalTreasuryFailure value)?  getTotalTreasuryFailure,TResult Function( GetHistoryLoading value)?  getHistoryLoading,TResult Function( GetHistorySuccess value)?  getHistorySuccess,TResult Function( GetHistoryFailure value)?  getHistoryFailure,TResult Function( AddExpenseLoading value)?  addExpenseLoading,TResult Function( AddExpenseSuccess value)?  addExpenseSuccess,TResult Function( AddExpenseFailure value)?  addExpenseFailure,TResult Function( AddExtraBalanceLoading value)?  addExtraBalanceLoading,TResult Function( AddExtraBalanceSuccess value)?  addExtraBalanceSuccess,TResult Function( AddExtraBalanceFailure value)?  addExtraBalanceFailure,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( TreasuryLoading value)?  loading,TResult Function( TreasuryLoaded value)?  loaded,TResult Function( TreasuryLoadFailure value)?  loadFailure,TResult Function( AddExpenseLoading value)?  addExpenseLoading,TResult Function( AddExpenseSuccess value)?  addExpenseSuccess,TResult Function( AddExpenseFailure value)?  addExpenseFailure,TResult Function( AddExtraBalanceLoading value)?  addExtraBalanceLoading,TResult Function( AddExtraBalanceSuccess value)?  addExtraBalanceSuccess,TResult Function( AddExtraBalanceFailure value)?  addExtraBalanceFailure,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case GetTotalTreasuryLoading() when getTotalTreasuryLoading != null:
-return getTotalTreasuryLoading(_that);case GetTotalTreasurySuccess() when getTotalTreasurySuccess != null:
-return getTotalTreasurySuccess(_that);case GetTotalTreasuryFailure() when getTotalTreasuryFailure != null:
-return getTotalTreasuryFailure(_that);case GetHistoryLoading() when getHistoryLoading != null:
-return getHistoryLoading(_that);case GetHistorySuccess() when getHistorySuccess != null:
-return getHistorySuccess(_that);case GetHistoryFailure() when getHistoryFailure != null:
-return getHistoryFailure(_that);case AddExpenseLoading() when addExpenseLoading != null:
+return initial(_that);case TreasuryLoading() when loading != null:
+return loading(_that);case TreasuryLoaded() when loaded != null:
+return loaded(_that);case TreasuryLoadFailure() when loadFailure != null:
+return loadFailure(_that);case AddExpenseLoading() when addExpenseLoading != null:
 return addExpenseLoading(_that);case AddExpenseSuccess() when addExpenseSuccess != null:
 return addExpenseSuccess(_that);case AddExpenseFailure() when addExpenseFailure != null:
 return addExpenseFailure(_that);case AddExtraBalanceLoading() when addExtraBalanceLoading != null:
@@ -89,17 +86,14 @@ return addExtraBalanceFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( GetTotalTreasuryLoading value)  getTotalTreasuryLoading,required TResult Function( GetTotalTreasurySuccess value)  getTotalTreasurySuccess,required TResult Function( GetTotalTreasuryFailure value)  getTotalTreasuryFailure,required TResult Function( GetHistoryLoading value)  getHistoryLoading,required TResult Function( GetHistorySuccess value)  getHistorySuccess,required TResult Function( GetHistoryFailure value)  getHistoryFailure,required TResult Function( AddExpenseLoading value)  addExpenseLoading,required TResult Function( AddExpenseSuccess value)  addExpenseSuccess,required TResult Function( AddExpenseFailure value)  addExpenseFailure,required TResult Function( AddExtraBalanceLoading value)  addExtraBalanceLoading,required TResult Function( AddExtraBalanceSuccess value)  addExtraBalanceSuccess,required TResult Function( AddExtraBalanceFailure value)  addExtraBalanceFailure,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( TreasuryLoading value)  loading,required TResult Function( TreasuryLoaded value)  loaded,required TResult Function( TreasuryLoadFailure value)  loadFailure,required TResult Function( AddExpenseLoading value)  addExpenseLoading,required TResult Function( AddExpenseSuccess value)  addExpenseSuccess,required TResult Function( AddExpenseFailure value)  addExpenseFailure,required TResult Function( AddExtraBalanceLoading value)  addExtraBalanceLoading,required TResult Function( AddExtraBalanceSuccess value)  addExtraBalanceSuccess,required TResult Function( AddExtraBalanceFailure value)  addExtraBalanceFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial():
-return initial(_that);case GetTotalTreasuryLoading():
-return getTotalTreasuryLoading(_that);case GetTotalTreasurySuccess():
-return getTotalTreasurySuccess(_that);case GetTotalTreasuryFailure():
-return getTotalTreasuryFailure(_that);case GetHistoryLoading():
-return getHistoryLoading(_that);case GetHistorySuccess():
-return getHistorySuccess(_that);case GetHistoryFailure():
-return getHistoryFailure(_that);case AddExpenseLoading():
+return initial(_that);case TreasuryLoading():
+return loading(_that);case TreasuryLoaded():
+return loaded(_that);case TreasuryLoadFailure():
+return loadFailure(_that);case AddExpenseLoading():
 return addExpenseLoading(_that);case AddExpenseSuccess():
 return addExpenseSuccess(_that);case AddExpenseFailure():
 return addExpenseFailure(_that);case AddExtraBalanceLoading():
@@ -122,17 +116,14 @@ return addExtraBalanceFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( GetTotalTreasuryLoading value)?  getTotalTreasuryLoading,TResult? Function( GetTotalTreasurySuccess value)?  getTotalTreasurySuccess,TResult? Function( GetTotalTreasuryFailure value)?  getTotalTreasuryFailure,TResult? Function( GetHistoryLoading value)?  getHistoryLoading,TResult? Function( GetHistorySuccess value)?  getHistorySuccess,TResult? Function( GetHistoryFailure value)?  getHistoryFailure,TResult? Function( AddExpenseLoading value)?  addExpenseLoading,TResult? Function( AddExpenseSuccess value)?  addExpenseSuccess,TResult? Function( AddExpenseFailure value)?  addExpenseFailure,TResult? Function( AddExtraBalanceLoading value)?  addExtraBalanceLoading,TResult? Function( AddExtraBalanceSuccess value)?  addExtraBalanceSuccess,TResult? Function( AddExtraBalanceFailure value)?  addExtraBalanceFailure,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( TreasuryLoading value)?  loading,TResult? Function( TreasuryLoaded value)?  loaded,TResult? Function( TreasuryLoadFailure value)?  loadFailure,TResult? Function( AddExpenseLoading value)?  addExpenseLoading,TResult? Function( AddExpenseSuccess value)?  addExpenseSuccess,TResult? Function( AddExpenseFailure value)?  addExpenseFailure,TResult? Function( AddExtraBalanceLoading value)?  addExtraBalanceLoading,TResult? Function( AddExtraBalanceSuccess value)?  addExtraBalanceSuccess,TResult? Function( AddExtraBalanceFailure value)?  addExtraBalanceFailure,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial(_that);case GetTotalTreasuryLoading() when getTotalTreasuryLoading != null:
-return getTotalTreasuryLoading(_that);case GetTotalTreasurySuccess() when getTotalTreasurySuccess != null:
-return getTotalTreasurySuccess(_that);case GetTotalTreasuryFailure() when getTotalTreasuryFailure != null:
-return getTotalTreasuryFailure(_that);case GetHistoryLoading() when getHistoryLoading != null:
-return getHistoryLoading(_that);case GetHistorySuccess() when getHistorySuccess != null:
-return getHistorySuccess(_that);case GetHistoryFailure() when getHistoryFailure != null:
-return getHistoryFailure(_that);case AddExpenseLoading() when addExpenseLoading != null:
+return initial(_that);case TreasuryLoading() when loading != null:
+return loading(_that);case TreasuryLoaded() when loaded != null:
+return loaded(_that);case TreasuryLoadFailure() when loadFailure != null:
+return loadFailure(_that);case AddExpenseLoading() when addExpenseLoading != null:
 return addExpenseLoading(_that);case AddExpenseSuccess() when addExpenseSuccess != null:
 return addExpenseSuccess(_that);case AddExpenseFailure() when addExpenseFailure != null:
 return addExpenseFailure(_that);case AddExtraBalanceLoading() when addExtraBalanceLoading != null:
@@ -155,16 +146,13 @@ return addExtraBalanceFailure(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  getTotalTreasuryLoading,TResult Function( double total)?  getTotalTreasurySuccess,TResult Function( Failure failure)?  getTotalTreasuryFailure,TResult Function()?  getHistoryLoading,TResult Function( List<TreasuryHistoryItem> history)?  getHistorySuccess,TResult Function( Failure failure)?  getHistoryFailure,TResult Function()?  addExpenseLoading,TResult Function()?  addExpenseSuccess,TResult Function( Failure failure)?  addExpenseFailure,TResult Function()?  addExtraBalanceLoading,TResult Function()?  addExtraBalanceSuccess,TResult Function( Failure failure)?  addExtraBalanceFailure,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( double total,  List<TreasuryHistoryItem> history,  int year)?  loaded,TResult Function( Failure failure)?  loadFailure,TResult Function()?  addExpenseLoading,TResult Function()?  addExpenseSuccess,TResult Function( Failure failure)?  addExpenseFailure,TResult Function()?  addExtraBalanceLoading,TResult Function()?  addExtraBalanceSuccess,TResult Function( Failure failure)?  addExtraBalanceFailure,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case GetTotalTreasuryLoading() when getTotalTreasuryLoading != null:
-return getTotalTreasuryLoading();case GetTotalTreasurySuccess() when getTotalTreasurySuccess != null:
-return getTotalTreasurySuccess(_that.total);case GetTotalTreasuryFailure() when getTotalTreasuryFailure != null:
-return getTotalTreasuryFailure(_that.failure);case GetHistoryLoading() when getHistoryLoading != null:
-return getHistoryLoading();case GetHistorySuccess() when getHistorySuccess != null:
-return getHistorySuccess(_that.history);case GetHistoryFailure() when getHistoryFailure != null:
-return getHistoryFailure(_that.failure);case AddExpenseLoading() when addExpenseLoading != null:
+return initial();case TreasuryLoading() when loading != null:
+return loading();case TreasuryLoaded() when loaded != null:
+return loaded(_that.total,_that.history,_that.year);case TreasuryLoadFailure() when loadFailure != null:
+return loadFailure(_that.failure);case AddExpenseLoading() when addExpenseLoading != null:
 return addExpenseLoading();case AddExpenseSuccess() when addExpenseSuccess != null:
 return addExpenseSuccess();case AddExpenseFailure() when addExpenseFailure != null:
 return addExpenseFailure(_that.failure);case AddExtraBalanceLoading() when addExtraBalanceLoading != null:
@@ -188,16 +176,13 @@ return addExtraBalanceFailure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  getTotalTreasuryLoading,required TResult Function( double total)  getTotalTreasurySuccess,required TResult Function( Failure failure)  getTotalTreasuryFailure,required TResult Function()  getHistoryLoading,required TResult Function( List<TreasuryHistoryItem> history)  getHistorySuccess,required TResult Function( Failure failure)  getHistoryFailure,required TResult Function()  addExpenseLoading,required TResult Function()  addExpenseSuccess,required TResult Function( Failure failure)  addExpenseFailure,required TResult Function()  addExtraBalanceLoading,required TResult Function()  addExtraBalanceSuccess,required TResult Function( Failure failure)  addExtraBalanceFailure,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( double total,  List<TreasuryHistoryItem> history,  int year)  loaded,required TResult Function( Failure failure)  loadFailure,required TResult Function()  addExpenseLoading,required TResult Function()  addExpenseSuccess,required TResult Function( Failure failure)  addExpenseFailure,required TResult Function()  addExtraBalanceLoading,required TResult Function()  addExtraBalanceSuccess,required TResult Function( Failure failure)  addExtraBalanceFailure,}) {final _that = this;
 switch (_that) {
 case _Initial():
-return initial();case GetTotalTreasuryLoading():
-return getTotalTreasuryLoading();case GetTotalTreasurySuccess():
-return getTotalTreasurySuccess(_that.total);case GetTotalTreasuryFailure():
-return getTotalTreasuryFailure(_that.failure);case GetHistoryLoading():
-return getHistoryLoading();case GetHistorySuccess():
-return getHistorySuccess(_that.history);case GetHistoryFailure():
-return getHistoryFailure(_that.failure);case AddExpenseLoading():
+return initial();case TreasuryLoading():
+return loading();case TreasuryLoaded():
+return loaded(_that.total,_that.history,_that.year);case TreasuryLoadFailure():
+return loadFailure(_that.failure);case AddExpenseLoading():
 return addExpenseLoading();case AddExpenseSuccess():
 return addExpenseSuccess();case AddExpenseFailure():
 return addExpenseFailure(_that.failure);case AddExtraBalanceLoading():
@@ -220,16 +205,13 @@ return addExtraBalanceFailure(_that.failure);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  getTotalTreasuryLoading,TResult? Function( double total)?  getTotalTreasurySuccess,TResult? Function( Failure failure)?  getTotalTreasuryFailure,TResult? Function()?  getHistoryLoading,TResult? Function( List<TreasuryHistoryItem> history)?  getHistorySuccess,TResult? Function( Failure failure)?  getHistoryFailure,TResult? Function()?  addExpenseLoading,TResult? Function()?  addExpenseSuccess,TResult? Function( Failure failure)?  addExpenseFailure,TResult? Function()?  addExtraBalanceLoading,TResult? Function()?  addExtraBalanceSuccess,TResult? Function( Failure failure)?  addExtraBalanceFailure,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( double total,  List<TreasuryHistoryItem> history,  int year)?  loaded,TResult? Function( Failure failure)?  loadFailure,TResult? Function()?  addExpenseLoading,TResult? Function()?  addExpenseSuccess,TResult? Function( Failure failure)?  addExpenseFailure,TResult? Function()?  addExtraBalanceLoading,TResult? Function()?  addExtraBalanceSuccess,TResult? Function( Failure failure)?  addExtraBalanceFailure,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
-return initial();case GetTotalTreasuryLoading() when getTotalTreasuryLoading != null:
-return getTotalTreasuryLoading();case GetTotalTreasurySuccess() when getTotalTreasurySuccess != null:
-return getTotalTreasurySuccess(_that.total);case GetTotalTreasuryFailure() when getTotalTreasuryFailure != null:
-return getTotalTreasuryFailure(_that.failure);case GetHistoryLoading() when getHistoryLoading != null:
-return getHistoryLoading();case GetHistorySuccess() when getHistorySuccess != null:
-return getHistorySuccess(_that.history);case GetHistoryFailure() when getHistoryFailure != null:
-return getHistoryFailure(_that.failure);case AddExpenseLoading() when addExpenseLoading != null:
+return initial();case TreasuryLoading() when loading != null:
+return loading();case TreasuryLoaded() when loaded != null:
+return loaded(_that.total,_that.history,_that.year);case TreasuryLoadFailure() when loadFailure != null:
+return loadFailure(_that.failure);case AddExpenseLoading() when addExpenseLoading != null:
 return addExpenseLoading();case AddExpenseSuccess() when addExpenseSuccess != null:
 return addExpenseSuccess();case AddExpenseFailure() when addExpenseFailure != null:
 return addExpenseFailure(_that.failure);case AddExtraBalanceLoading() when addExtraBalanceLoading != null:
@@ -278,8 +260,8 @@ String toString() {
 /// @nodoc
 
 
-class GetTotalTreasuryLoading implements TreasuryState {
-  const GetTotalTreasuryLoading();
+class TreasuryLoading implements TreasuryState {
+  const TreasuryLoading();
   
 
 
@@ -289,7 +271,7 @@ class GetTotalTreasuryLoading implements TreasuryState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetTotalTreasuryLoading);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TreasuryLoading);
 }
 
 
@@ -298,7 +280,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'TreasuryState.getTotalTreasuryLoading()';
+  return 'TreasuryState.loading()';
 }
 
 
@@ -310,174 +292,11 @@ String toString() {
 /// @nodoc
 
 
-class GetTotalTreasurySuccess implements TreasuryState {
-  const GetTotalTreasurySuccess({required this.total});
+class TreasuryLoaded implements TreasuryState {
+  const TreasuryLoaded({required this.total, required final  List<TreasuryHistoryItem> history, required this.year}): _history = history;
   
 
  final  double total;
-
-/// Create a copy of TreasuryState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$GetTotalTreasurySuccessCopyWith<GetTotalTreasurySuccess> get copyWith => _$GetTotalTreasurySuccessCopyWithImpl<GetTotalTreasurySuccess>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetTotalTreasurySuccess&&(identical(other.total, total) || other.total == total));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,total);
-
-@override
-String toString() {
-  return 'TreasuryState.getTotalTreasurySuccess(total: $total)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $GetTotalTreasurySuccessCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
-  factory $GetTotalTreasurySuccessCopyWith(GetTotalTreasurySuccess value, $Res Function(GetTotalTreasurySuccess) _then) = _$GetTotalTreasurySuccessCopyWithImpl;
-@useResult
-$Res call({
- double total
-});
-
-
-
-
-}
-/// @nodoc
-class _$GetTotalTreasurySuccessCopyWithImpl<$Res>
-    implements $GetTotalTreasurySuccessCopyWith<$Res> {
-  _$GetTotalTreasurySuccessCopyWithImpl(this._self, this._then);
-
-  final GetTotalTreasurySuccess _self;
-  final $Res Function(GetTotalTreasurySuccess) _then;
-
-/// Create a copy of TreasuryState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? total = null,}) {
-  return _then(GetTotalTreasurySuccess(
-total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
-as double,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class GetTotalTreasuryFailure implements TreasuryState {
-  const GetTotalTreasuryFailure({required this.failure});
-  
-
- final  Failure failure;
-
-/// Create a copy of TreasuryState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$GetTotalTreasuryFailureCopyWith<GetTotalTreasuryFailure> get copyWith => _$GetTotalTreasuryFailureCopyWithImpl<GetTotalTreasuryFailure>(this, _$identity);
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetTotalTreasuryFailure&&(identical(other.failure, failure) || other.failure == failure));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,failure);
-
-@override
-String toString() {
-  return 'TreasuryState.getTotalTreasuryFailure(failure: $failure)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class $GetTotalTreasuryFailureCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
-  factory $GetTotalTreasuryFailureCopyWith(GetTotalTreasuryFailure value, $Res Function(GetTotalTreasuryFailure) _then) = _$GetTotalTreasuryFailureCopyWithImpl;
-@useResult
-$Res call({
- Failure failure
-});
-
-
-
-
-}
-/// @nodoc
-class _$GetTotalTreasuryFailureCopyWithImpl<$Res>
-    implements $GetTotalTreasuryFailureCopyWith<$Res> {
-  _$GetTotalTreasuryFailureCopyWithImpl(this._self, this._then);
-
-  final GetTotalTreasuryFailure _self;
-  final $Res Function(GetTotalTreasuryFailure) _then;
-
-/// Create a copy of TreasuryState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? failure = null,}) {
-  return _then(GetTotalTreasuryFailure(
-failure: null == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
-as Failure,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class GetHistoryLoading implements TreasuryState {
-  const GetHistoryLoading();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetHistoryLoading);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'TreasuryState.getHistoryLoading()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class GetHistorySuccess implements TreasuryState {
-  const GetHistorySuccess({required final  List<TreasuryHistoryItem> history}): _history = history;
-  
-
  final  List<TreasuryHistoryItem> _history;
  List<TreasuryHistoryItem> get history {
   if (_history is EqualUnmodifiableListView) return _history;
@@ -485,38 +304,39 @@ class GetHistorySuccess implements TreasuryState {
   return EqualUnmodifiableListView(_history);
 }
 
+ final  int year;
 
 /// Create a copy of TreasuryState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GetHistorySuccessCopyWith<GetHistorySuccess> get copyWith => _$GetHistorySuccessCopyWithImpl<GetHistorySuccess>(this, _$identity);
+$TreasuryLoadedCopyWith<TreasuryLoaded> get copyWith => _$TreasuryLoadedCopyWithImpl<TreasuryLoaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetHistorySuccess&&const DeepCollectionEquality().equals(other._history, _history));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TreasuryLoaded&&(identical(other.total, total) || other.total == total)&&const DeepCollectionEquality().equals(other._history, _history)&&(identical(other.year, year) || other.year == year));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_history));
+int get hashCode => Object.hash(runtimeType,total,const DeepCollectionEquality().hash(_history),year);
 
 @override
 String toString() {
-  return 'TreasuryState.getHistorySuccess(history: $history)';
+  return 'TreasuryState.loaded(total: $total, history: $history, year: $year)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GetHistorySuccessCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
-  factory $GetHistorySuccessCopyWith(GetHistorySuccess value, $Res Function(GetHistorySuccess) _then) = _$GetHistorySuccessCopyWithImpl;
+abstract mixin class $TreasuryLoadedCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
+  factory $TreasuryLoadedCopyWith(TreasuryLoaded value, $Res Function(TreasuryLoaded) _then) = _$TreasuryLoadedCopyWithImpl;
 @useResult
 $Res call({
- List<TreasuryHistoryItem> history
+ double total, List<TreasuryHistoryItem> history, int year
 });
 
 
@@ -524,19 +344,21 @@ $Res call({
 
 }
 /// @nodoc
-class _$GetHistorySuccessCopyWithImpl<$Res>
-    implements $GetHistorySuccessCopyWith<$Res> {
-  _$GetHistorySuccessCopyWithImpl(this._self, this._then);
+class _$TreasuryLoadedCopyWithImpl<$Res>
+    implements $TreasuryLoadedCopyWith<$Res> {
+  _$TreasuryLoadedCopyWithImpl(this._self, this._then);
 
-  final GetHistorySuccess _self;
-  final $Res Function(GetHistorySuccess) _then;
+  final TreasuryLoaded _self;
+  final $Res Function(TreasuryLoaded) _then;
 
 /// Create a copy of TreasuryState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? history = null,}) {
-  return _then(GetHistorySuccess(
-history: null == history ? _self._history : history // ignore: cast_nullable_to_non_nullable
-as List<TreasuryHistoryItem>,
+@pragma('vm:prefer-inline') $Res call({Object? total = null,Object? history = null,Object? year = null,}) {
+  return _then(TreasuryLoaded(
+total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as double,history: null == history ? _self._history : history // ignore: cast_nullable_to_non_nullable
+as List<TreasuryHistoryItem>,year: null == year ? _self.year : year // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -546,8 +368,8 @@ as List<TreasuryHistoryItem>,
 /// @nodoc
 
 
-class GetHistoryFailure implements TreasuryState {
-  const GetHistoryFailure({required this.failure});
+class TreasuryLoadFailure implements TreasuryState {
+  const TreasuryLoadFailure({required this.failure});
   
 
  final  Failure failure;
@@ -556,13 +378,13 @@ class GetHistoryFailure implements TreasuryState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$GetHistoryFailureCopyWith<GetHistoryFailure> get copyWith => _$GetHistoryFailureCopyWithImpl<GetHistoryFailure>(this, _$identity);
+$TreasuryLoadFailureCopyWith<TreasuryLoadFailure> get copyWith => _$TreasuryLoadFailureCopyWithImpl<TreasuryLoadFailure>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GetHistoryFailure&&(identical(other.failure, failure) || other.failure == failure));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TreasuryLoadFailure&&(identical(other.failure, failure) || other.failure == failure));
 }
 
 
@@ -571,15 +393,15 @@ int get hashCode => Object.hash(runtimeType,failure);
 
 @override
 String toString() {
-  return 'TreasuryState.getHistoryFailure(failure: $failure)';
+  return 'TreasuryState.loadFailure(failure: $failure)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $GetHistoryFailureCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
-  factory $GetHistoryFailureCopyWith(GetHistoryFailure value, $Res Function(GetHistoryFailure) _then) = _$GetHistoryFailureCopyWithImpl;
+abstract mixin class $TreasuryLoadFailureCopyWith<$Res> implements $TreasuryStateCopyWith<$Res> {
+  factory $TreasuryLoadFailureCopyWith(TreasuryLoadFailure value, $Res Function(TreasuryLoadFailure) _then) = _$TreasuryLoadFailureCopyWithImpl;
 @useResult
 $Res call({
  Failure failure
@@ -590,17 +412,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$GetHistoryFailureCopyWithImpl<$Res>
-    implements $GetHistoryFailureCopyWith<$Res> {
-  _$GetHistoryFailureCopyWithImpl(this._self, this._then);
+class _$TreasuryLoadFailureCopyWithImpl<$Res>
+    implements $TreasuryLoadFailureCopyWith<$Res> {
+  _$TreasuryLoadFailureCopyWithImpl(this._self, this._then);
 
-  final GetHistoryFailure _self;
-  final $Res Function(GetHistoryFailure) _then;
+  final TreasuryLoadFailure _self;
+  final $Res Function(TreasuryLoadFailure) _then;
 
 /// Create a copy of TreasuryState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? failure = null,}) {
-  return _then(GetHistoryFailure(
+  return _then(TreasuryLoadFailure(
 failure: null == failure ? _self.failure : failure // ignore: cast_nullable_to_non_nullable
 as Failure,
   ));

@@ -5,11 +5,16 @@ class DashboardAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   const DashboardAppBar({
     super.key,
-    required this.title, 
+    required this.title,
     this.onTapDashBoardIcon,
+    this.showBackButton = false,
+    this.onSearchChanged,
   });
- final VoidCallback? onTapDashBoardIcon;
+
+  final VoidCallback? onTapDashBoardIcon;
   final String title;
+  final bool showBackButton;
+  final ValueChanged<String>? onSearchChanged;
 
   @override
   Size get preferredSize => const Size.fromHeight(72);
@@ -32,23 +37,41 @@ class DashboardAppBar extends StatelessWidget
       titleSpacing: 24,
       title: Row(
         children: [
-          InkWell(
-            onTap: onTapDashBoardIcon,
-            child: Container(
-              height: 42,
-              width: 42,
-              decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: .1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                Icons.dashboard_customize_rounded,
-                color: AppColors.primary,
+          if (showBackButton) ...[
+            InkWell(
+              onTap: () => Navigator.of(context).maybePop(),
+              child: Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: .1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  color: AppColors.primary,
+                ),
               ),
             ),
-          ),
-
-          const SizedBox(width: 14),
+            const SizedBox(width: 14),
+          ] else ...[
+            InkWell(
+              onTap: onTapDashBoardIcon,
+              child: Container(
+                height: 42,
+                width: 42,
+                decoration: BoxDecoration(
+                  color: AppColors.primary.withValues(alpha: .1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  Icons.dashboard_customize_rounded,
+                  color: AppColors.primary,
+                ),
+              ),
+            ),
+            const SizedBox(width: 14),
+          ],
 
           Text(
             title,
@@ -65,6 +88,7 @@ class DashboardAppBar extends StatelessWidget
             width: 320,
             height: 44,
             child: TextField(
+              onChanged: onSearchChanged,
               decoration: InputDecoration(
                 hintText: "Search...",
                 prefixIcon: const Icon(Icons.search),

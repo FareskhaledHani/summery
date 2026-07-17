@@ -9,23 +9,16 @@ part 'treasury_state.freezed.dart';
 class TreasuryState with _$TreasuryState {
   const factory TreasuryState.initial() = _Initial;
 
-  //! get total treasury states
-  const factory TreasuryState.getTotalTreasuryLoading() = GetTotalTreasuryLoading;
-  const factory TreasuryState.getTotalTreasurySuccess({
+  //! تحميل الإجمالي + الـ History مع بعض
+  const factory TreasuryState.loading() = TreasuryLoading;
+  const factory TreasuryState.loaded({
     required double total,
-  }) = GetTotalTreasurySuccess;
-  const factory TreasuryState.getTotalTreasuryFailure({
-    required Failure failure,
-  }) = GetTotalTreasuryFailure;
-
-  //! get history states
-  const factory TreasuryState.getHistoryLoading() = GetHistoryLoading;
-  const factory TreasuryState.getHistorySuccess({
     required List<TreasuryHistoryItem> history,
-  }) = GetHistorySuccess;
-  const factory TreasuryState.getHistoryFailure({
+    required int year,
+  }) = TreasuryLoaded;
+  const factory TreasuryState.loadFailure({
     required Failure failure,
-  }) = GetHistoryFailure;
+  }) = TreasuryLoadFailure;
 
   //! add expense states
   const factory TreasuryState.addExpenseLoading() = AddExpenseLoading;

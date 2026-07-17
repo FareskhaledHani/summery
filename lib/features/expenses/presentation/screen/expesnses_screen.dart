@@ -5,10 +5,8 @@ import 'package:my_summer/features/expenses/presentation/widgets/treasury_action
 import 'package:my_summer/features/expenses/presentation/widgets/treasury_history_list.dart';
 import 'package:my_summer/features/expenses/presentation/widgets/treasury_total_card.dart';
 
-import '../../domain/entity/history_entity.dart';
 import '../cubit/treasury_cubit.dart';
 import '../cubit/treasury_state.dart';
-
 
 class ExpesnsesScreen extends StatelessWidget {
   const ExpesnsesScreen({super.key});
@@ -30,54 +28,35 @@ class _ExpensesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('الخزنة')),
       body: BlocBuilder<TreasuryCubit, TreasuryState>(
+        buildWhen: (previous, current) =>
+            current is TreasuryLoading ||
+            current is TreasuryLoaded ||
+            current is TreasuryLoadFailure,
         builder: (context, state) {
-          final total = state.mapOrNull(
-            getTotalTreasurySuccess: (s) => s.total,
-          );
-
-          final history = state.mapOrNull(
-            getHistorySuccess: (s) => s.history,
-          ) ?? const <TreasuryHistoryItem>[];
-
-          final isLoading = state.mapOrNull(
-                getTotalTreasuryLoading: (_) => true,
-                getHistoryLoading: (_) => true,
-              ) ??
-              false;
-
-          final failureMessage = state.mapOrNull(
-            getTotalTreasuryFailure: (s) => s.failure.message,
-            getHistoryFailure: (s) => s.failure.message,
-          );
-
-          if (isLoading && total == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (failureMessage != null && total == null) {
-            return Center(child: Text(failureMessage));
-          }
-
-          return RefreshIndicator(
-            onRefresh: () => context.read<TreasuryCubit>().loadAll(),
-            child: ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                TreasuryTotalCard(
-                  total: total ?? 0,
-                  year: context.read<TreasuryCubit>().currentYear,
+          return state.maybeWhen(
+            loading: () => const Center(child: CircularProgressIndicator()),
+            loadFailure: (failure) => Center(child: Text(failure.message)),
+            loaded: (total, history, year) {
+              return RefreshIndicator(
+                onRefresh: () => context.read<TreasuryCubit>().loadAll(),
+                child: ListView(
+                  padding: const EdgeInsets.all(16),
+                  children: [
+                    TreasuryTotalCard(total: total, year: year),
+                    const SizedBox(height: 16),
+                    const TreasuryActionButtons(),
+                    const SizedBox(height: 20),
+                    const Text(
+                      'سجل الحركات',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 8),
+                    TreasuryHistoryList(items: history),
+                  ],
                 ),
-                const SizedBox(height: 16),
-                const TreasuryActionButtons(),
-                const SizedBox(height: 20),
-                const Text(
-                  'سجل الحركات',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                ),
-                const SizedBox(height: 8),
-                TreasuryHistoryList(items: history),
-              ],
-            ),
+              );
+            },
+            orElse: () => const Center(child: CircularProgressIndicator()),
           );
         },
       ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 import 'package:get_it/get_it.dart';
 import 'package:my_summer/core/utils/app_colors.dart';
 import 'package:my_summer/core/utils/app_text_styles.dart';
@@ -26,15 +25,26 @@ class ChaletsScreen extends StatelessWidget {
   }
 }
 
-class _ChaletsView extends StatelessWidget {
+class _ChaletsView extends StatefulWidget {
   const _ChaletsView();
+
+  @override
+  State<_ChaletsView> createState() => _ChaletsViewState();
+}
+
+class _ChaletsViewState extends State<_ChaletsView> {
+  String _searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const DashboardAppBar(
+      appBar: DashboardAppBar(
         onTapDashBoardIcon: null,
         title: "Dashboard",
+        showBackButton: Navigator.canPop(context),
+        onSearchChanged: (value) {
+          setState(() => _searchQuery = value.trim());
+        },
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _openAddChaletSheet(context),
@@ -48,11 +58,25 @@ class _ChaletsView extends StatelessWidget {
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (message) => Center(child: Text(message)),
             loaded: (chalets, totalPaidAcrossAll) {
+              // فلترة الشاليهات حسب نص البحث (بالاسم أو الـ subtitle)
+              final filteredChalets = _searchQuery.isEmpty
+                  ? chalets
+                  : chalets.where((c) {
+                      final query = _searchQuery.toLowerCase();
+                      final name = c.name.toLowerCase();
+                      final subtitle = (c.subtitle ?? '').toLowerCase();
+                      return name.contains(query) || subtitle.contains(query);
+                    }).toList();
+
               if (chalets.isEmpty) {
                 return const Center(child: Text('لا يوجد شاليهات بعد'));
               }
 
-              final items = chalets
+              if (filteredChalets.isEmpty) {
+                return const Center(child: Text('لا توجد نتائج مطابقة للبحث'));
+              }
+
+              final items = filteredChalets
                   .map(
                     (chalet) => CardItemData(
                       title: chalet.name,
@@ -116,12 +140,13 @@ class _ChaletsView extends StatelessWidget {
     );
   }
 
-  void _openChaletDetails(BuildContext context, ChaletEntity chalet) {
-    Navigator.of(context).push(
+  void _openChaletDetails(BuildContext context, ChaletEntity chalet) async {
+    final cubit = context.read<ChaletsListCubit>();
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => ChaletDetailsScreen(chalet: chalet),
       ),
     );
-     context.read<ChaletsListCubit>().loadChalets(); 
+    cubit.loadChalets();
   }
 }
