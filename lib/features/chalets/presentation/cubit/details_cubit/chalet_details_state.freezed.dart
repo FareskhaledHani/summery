@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<BookingEntity> bookings,  double totalPaidForChalet)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( List<BookingEntity> bookings,  List<ChaletExpenseEntity> expenses,  double totalPaidForChalet)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.bookings,_that.totalPaidForChalet);case _Error() when error != null:
+return loaded(_that.bookings,_that.expenses,_that.totalPaidForChalet);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<BookingEntity> bookings,  double totalPaidForChalet)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( List<BookingEntity> bookings,  List<ChaletExpenseEntity> expenses,  double totalPaidForChalet)  loaded,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Loaded():
-return loaded(_that.bookings,_that.totalPaidForChalet);case _Error():
+return loaded(_that.bookings,_that.expenses,_that.totalPaidForChalet);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<BookingEntity> bookings,  double totalPaidForChalet)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( List<BookingEntity> bookings,  List<ChaletExpenseEntity> expenses,  double totalPaidForChalet)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Loaded() when loaded != null:
-return loaded(_that.bookings,_that.totalPaidForChalet);case _Error() when error != null:
+return loaded(_that.bookings,_that.expenses,_that.totalPaidForChalet);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -257,7 +257,7 @@ String toString() {
 
 
 class _Loaded implements ChaletDetailsState {
-  const _Loaded({required final  List<BookingEntity> bookings, required this.totalPaidForChalet}): _bookings = bookings;
+  const _Loaded({required final  List<BookingEntity> bookings, required final  List<ChaletExpenseEntity> expenses, required this.totalPaidForChalet}): _bookings = bookings,_expenses = expenses;
   
 
  final  List<BookingEntity> _bookings;
@@ -265,6 +265,13 @@ class _Loaded implements ChaletDetailsState {
   if (_bookings is EqualUnmodifiableListView) return _bookings;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_bookings);
+}
+
+ final  List<ChaletExpenseEntity> _expenses;
+ List<ChaletExpenseEntity> get expenses {
+  if (_expenses is EqualUnmodifiableListView) return _expenses;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_expenses);
 }
 
  final  double totalPaidForChalet;
@@ -279,16 +286,16 @@ _$LoadedCopyWith<_Loaded> get copyWith => __$LoadedCopyWithImpl<_Loaded>(this, _
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._bookings, _bookings)&&(identical(other.totalPaidForChalet, totalPaidForChalet) || other.totalPaidForChalet == totalPaidForChalet));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loaded&&const DeepCollectionEquality().equals(other._bookings, _bookings)&&const DeepCollectionEquality().equals(other._expenses, _expenses)&&(identical(other.totalPaidForChalet, totalPaidForChalet) || other.totalPaidForChalet == totalPaidForChalet));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_bookings),totalPaidForChalet);
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_bookings),const DeepCollectionEquality().hash(_expenses),totalPaidForChalet);
 
 @override
 String toString() {
-  return 'ChaletDetailsState.loaded(bookings: $bookings, totalPaidForChalet: $totalPaidForChalet)';
+  return 'ChaletDetailsState.loaded(bookings: $bookings, expenses: $expenses, totalPaidForChalet: $totalPaidForChalet)';
 }
 
 
@@ -299,7 +306,7 @@ abstract mixin class _$LoadedCopyWith<$Res> implements $ChaletDetailsStateCopyWi
   factory _$LoadedCopyWith(_Loaded value, $Res Function(_Loaded) _then) = __$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<BookingEntity> bookings, double totalPaidForChalet
+ List<BookingEntity> bookings, List<ChaletExpenseEntity> expenses, double totalPaidForChalet
 });
 
 
@@ -316,10 +323,11 @@ class __$LoadedCopyWithImpl<$Res>
 
 /// Create a copy of ChaletDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? bookings = null,Object? totalPaidForChalet = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? bookings = null,Object? expenses = null,Object? totalPaidForChalet = null,}) {
   return _then(_Loaded(
 bookings: null == bookings ? _self._bookings : bookings // ignore: cast_nullable_to_non_nullable
-as List<BookingEntity>,totalPaidForChalet: null == totalPaidForChalet ? _self.totalPaidForChalet : totalPaidForChalet // ignore: cast_nullable_to_non_nullable
+as List<BookingEntity>,expenses: null == expenses ? _self._expenses : expenses // ignore: cast_nullable_to_non_nullable
+as List<ChaletExpenseEntity>,totalPaidForChalet: null == totalPaidForChalet ? _self.totalPaidForChalet : totalPaidForChalet // ignore: cast_nullable_to_non_nullable
 as double,
   ));
 }

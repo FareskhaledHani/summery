@@ -26,7 +26,7 @@ class AppDatabase {
     return databaseFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 3, // كان 2
+        version: 4, // كان 3
         onCreate: _onCreate,
         onUpgrade: _onUpgrade,
       ),
@@ -78,6 +78,18 @@ class AppDatabase {
         created_at TEXT NOT NULL
       )
     ''');
+
+    await db.execute('''
+      CREATE TABLE chalet_expenses (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        chalet_id INTEGER NOT NULL,
+        amount REAL NOT NULL,
+        description TEXT,
+        created_at TEXT NOT NULL,
+        is_cancelled INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY (chalet_id) REFERENCES chalets (id) ON DELETE CASCADE
+      )
+    ''');
   }
 
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
@@ -97,6 +109,19 @@ class AppDatabase {
           amount REAL NOT NULL,
           description TEXT,
           created_at TEXT NOT NULL
+        )
+      ''');
+    }
+    if (oldVersion < 4) {
+      await db.execute('''
+        CREATE TABLE chalet_expenses (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          chalet_id INTEGER NOT NULL,
+          amount REAL NOT NULL,
+          description TEXT,
+          created_at TEXT NOT NULL,
+          is_cancelled INTEGER NOT NULL DEFAULT 0,
+          FOREIGN KEY (chalet_id) REFERENCES chalets (id) ON DELETE CASCADE
         )
       ''');
     }

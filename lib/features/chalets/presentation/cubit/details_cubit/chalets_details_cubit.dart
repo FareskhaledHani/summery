@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_summer/features/chalets/domain/entity/booking_entity/booking_entity.dart';
+import 'package:my_summer/features/chalets/domain/entity/chalet_entity/chalet_expense_entity.dart';
 import 'package:my_summer/features/chalets/domain/entity/payment_entity/payment_entity.dart';
 import 'package:my_summer/features/chalets/domain/repo/chalet_repo.dart';
 
@@ -12,10 +13,28 @@ class ChaletDetailsCubit extends Cubit<ChaletDetailsState> {
 
   final ChaletRepository _repository;
   final int chaletId;
-   Future<bool> isDateRangeAvailable(DateTime start, DateTime end) {
+
+  Future<bool> isDateRangeAvailable(DateTime start, DateTime end) {
     return _repository.hasOverlap(chaletId, start, end).then((hasOverlap) => !hasOverlap);
   }
- Future<void> addBookingChecked({
+
+  Future<void> loadBookings() async {
+    emit(const ChaletDetailsState.loading());
+    try {
+      final bookings = await _repository.getBookingsForChalet(chaletId);
+      final expenses = await _repository.getExpensesForChalet(chaletId);
+      final total = await _repository.getTotalPaidForChalet(chaletId);
+      emit(ChaletDetailsState.loaded(
+        bookings: bookings,
+        expenses: expenses,
+        totalPaidForChalet: total,
+      ));
+    } catch (e) {
+      emit(ChaletDetailsState.error(e.toString()));
+    }
+  }
+
+  Future<void> addBookingChecked({
     required DateTime startDate,
     required DateTime endDate,
     required double totalPrice,
@@ -56,58 +75,10 @@ class ChaletDetailsCubit extends Cubit<ChaletDetailsState> {
       emit(ChaletDetailsState.error(e.toString()));
     }
   }
-   Future<void> cancelBooking(int bookingId, {required bool refund}) async {
+
+  Future<void> cancelBooking(int bookingId, {required bool refund}) async {
     try {
       await _repository.cancelBooking(bookingId, refund: refund);
-      await loadBookings();
-    } catch (e) {
-      emit(ChaletDetailsState.error(e.toString()));
-    }
-  }
-  Future<void> loadBookings() async {
-    emit(const ChaletDetailsState.loading());
-    try {
-      final bookings = await _repository.getBookingsForChalet(chaletId);
-      final total = await _repository.getTotalPaidForChalet(chaletId);
-      emit(ChaletDetailsState.loaded(
-        bookings: bookings,
-        totalPaidForChalet: total,
-      ));
-    } catch (e) {
-      emit(ChaletDetailsState.error(e.toString()));
-    }
-  }
-
-  Future<void> addBooking({
-    required DateTime startDate,
-    required DateTime endDate,
-    required double totalPrice,
-    String? notes,
-    double? depositAmount,
-  }) async {
-    try {
-      final bookingId = await _repository.addBooking(
-        BookingEntity(
-          chaletId: chaletId,
-          startDate: startDate,
-          endDate: endDate,
-          totalPrice: totalPrice,
-          notes: notes,
-          createdAt: DateTime.now(),
-        ),
-      );
-
-      if (depositAmount != null && depositAmount > 0) {
-        await _repository.addPayment(
-          PaymentEntity(
-            bookingId: bookingId,
-            amount: depositAmount,
-            paidAt: DateTime.now(),
-            type: PaymentType.deposit,
-          ),
-        );
-      }
-
       await loadBookings();
     } catch (e) {
       emit(ChaletDetailsState.error(e.toString()));
@@ -133,5 +104,29 @@ class ChaletDetailsCubit extends Cubit<ChaletDetailsState> {
       emit(ChaletDetailsState.error(e.toString()));
     }
   }
-  
+
+  Future<void> addExpense({required double amount, String? description}) async {
+    try {
+      await _repository.addChaletExpense(
+        ChaletExpenseEntity(
+          chaletId: chaletId,
+          amount: amount,
+          description: description,
+          createdAt: DateTime.now(),
+        ),
+      );
+      await loadBookings();
+    } catch (e) {
+      emit(ChaletDetailsState.error(e.toString()));
+    }
+  }
+
+  Future<void> cancelExpense(int expenseId) async {
+    try {
+      await _repository.cancelChaletExpense(expenseId);
+      await loadBookings();
+    } catch (e) {
+      emit(ChaletDetailsState.error(e.toString()));
+    }
+  }
 }

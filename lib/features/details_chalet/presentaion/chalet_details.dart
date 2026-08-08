@@ -9,13 +9,14 @@ import 'package:my_summer/features/chalets/domain/entity/chalet_entity/chalet_en
 import 'package:my_summer/features/chalets/domain/repo/chalet_repo.dart';
 import 'package:my_summer/features/chalets/presentation/cubit/details_cubit/chalet_details_state.dart';
 import 'package:my_summer/features/chalets/presentation/cubit/details_cubit/chalets_details_cubit.dart';
+import 'package:my_summer/features/chalets/presentation/widgets/chalet_expenses_section.dart';
 import 'package:my_summer/features/details_chalet/presentaion/widgets/add_booking_sheet.dart';
 import 'package:my_summer/features/details_chalet/presentaion/widgets/add_booking_sheet_details.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_text_styles.dart';
 import '../../../../core/utils/sizes.dart';
-
 
 class ChaletDetailsScreen extends StatelessWidget {
   const ChaletDetailsScreen({super.key, required this.chalet});
@@ -62,7 +63,7 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
             initial: () => const SizedBox.shrink(),
             loading: () => const Center(child: CircularProgressIndicator()),
             error: (message) => Center(child: Text(message)),
-            loaded: (bookings, totalPaidForChalet) {
+            loaded: (bookings, expenses, totalPaidForChalet) {
               return SingleChildScrollView(
                 padding: EdgeInsets.all(Sizes.s16.w),
                 child: Column(
@@ -71,6 +72,8 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
                     _buildTotalCard(totalPaidForChalet),
                     Gap(Sizes.s16.h),
                     _buildCalendar(context, bookings),
+                    Gap(Sizes.s24.h),
+                    ChaletExpensesSection(expenses: expenses),
                   ],
                 ),
               );
@@ -86,7 +89,7 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
       width: double.infinity,
       padding: EdgeInsets.all(Sizes.s16.w),
       decoration: BoxDecoration(
-        color: AppColors.primary.withValues(alpha: 0.08),
+        color: AppColors.primary.withOpacity(0.08),
         borderRadius: BorderRadius.circular(Sizes.s12),
       ),
       child: Row(
@@ -109,7 +112,6 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
   }
 
   Widget _buildCalendar(BuildContext context, List<BookingEntity> bookings) {
-    // توقيع فريد للبيانات: بيتغير كل ما تضيف/تلغي/تدفع حجز
     final signature = bookings
         .map((b) => '${b.id}-${b.isCancelled}-${b.totalPaid}')
         .join('|');
@@ -122,7 +124,7 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
         borderRadius: BorderRadius.circular(Sizes.s16),
         boxShadow: [
           BoxShadow(
-            color: AppColors.black.withValues(alpha: 0.05),
+            color: AppColors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -154,7 +156,7 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
         onPageChanged: (focusedDay) => _focusedDay = focusedDay,
         calendarStyle: CalendarStyle(
           todayDecoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.3),
+            color: AppColors.primary.withOpacity(0.3),
             shape: BoxShape.circle,
           ),
           selectedDecoration: const BoxDecoration(
@@ -167,14 +169,12 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
             final booking = BookingCalendarHelper.bookingForDay(bookings, day);
             if (booking == null) return null;
 
-            final color = booking.isFullyPaid
-                ? Colors.green
-                : Colors.orange; // مدفوع كامل = أخضر / لسه فيه باقي = برتقالي
+            final color = booking.isFullyPaid ? Colors.green : Colors.orange;
 
             return Container(
               margin: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.75),
+                color: color.withOpacity(0.75),
                 shape: BoxShape.circle,
               ),
               alignment: Alignment.center,
@@ -198,7 +198,6 @@ class _ChaletDetailsViewState extends State<_ChaletDetailsView> {
         child: AddBookingSheet(initialDate: initialDate),
       ),
     ).then((_) {
-      // نشيل التحديد بعد قفل الشيت عشان الدائرة متفضلش ظاهرة على اليوم
       if (mounted) {
         setState(() => _selectedDay = null);
       }

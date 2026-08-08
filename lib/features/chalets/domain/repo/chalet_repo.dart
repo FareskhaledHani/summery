@@ -1,7 +1,6 @@
-
-
 import 'package:my_summer/features/chalets/domain/entity/booking_entity/booking_entity.dart';
 import 'package:my_summer/features/chalets/domain/entity/chalet_entity/chalet_entity.dart';
+import 'package:my_summer/features/chalets/domain/entity/chalet_entity/chalet_expense_entity.dart';
 import 'package:my_summer/features/chalets/domain/entity/payment_entity/payment_entity.dart';
 
 abstract class ChaletRepository {
@@ -20,4 +19,8 @@ abstract class ChaletRepository {
   Future<double> getTotalPaidForBooking(int bookingId);
   Future<double> getTotalPaidForChalet(int chaletId);
   Future<double> getTotalPaidAcrossAllChalets();
+
+  Future<int> addChaletExpense(ChaletExpenseEntity expense);
+  Future<List<ChaletExpenseEntity>> getExpensesForChalet(int chaletId);
+  Future<void> cancelChaletExpense(int expenseId);
 }

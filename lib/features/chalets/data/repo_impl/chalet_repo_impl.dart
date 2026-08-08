@@ -1,12 +1,13 @@
-
 import 'package:my_summer/features/chalets/data/data_base/chalet_database.dart';
 import 'package:my_summer/features/chalets/domain/entity/booking_entity/booking_entity.dart';
 import 'package:my_summer/features/chalets/domain/entity/chalet_entity/chalet_entity.dart';
 import 'package:my_summer/features/chalets/domain/entity/payment_entity/payment_entity.dart';
 import 'package:my_summer/features/chalets/domain/repo/chalet_repo.dart';
 
+import '../../domain/entity/chalet_entity/chalet_expense_entity.dart';
 import '../models/booking_model.dart';
 import '../models/chalet_model.dart';
+import '../models/chalet_model_expensee.dart';
 import '../models/payment_model.dart';
 
 class ChaletRepositoryImpl implements ChaletRepository {
@@ -57,11 +58,41 @@ class ChaletRepositoryImpl implements ChaletRepository {
     );
   }
 
- 
+  @override
+  Future<List<BookingEntity>> getBookingsForChalet(int chaletId) async {
+    final models = await _localDataSource.getBookingsForChalet(chaletId);
+
+    final entities = <BookingEntity>[];
+    for (final m in models) {
+      final totalPaid = await _localDataSource.getTotalPaidForBooking(m.id!);
+      entities.add(BookingEntity(
+        id: m.id,
+        chaletId: m.chaletId,
+        startDate: m.startDate,
+        endDate: m.endDate,
+        totalPrice: m.totalPrice,
+        notes: m.notes,
+        createdAt: m.createdAt,
+        totalPaid: totalPaid,
+        isCancelled: m.isCancelled,
+      ));
+    }
+    return entities;
+  }
 
   @override
   Future<bool> isChaletBookedOnDate(int chaletId, DateTime date) {
     return _localDataSource.isChaletBookedOnDate(chaletId, date);
+  }
+
+  @override
+  Future<bool> hasOverlap(int chaletId, DateTime startDate, DateTime endDate) {
+    return _localDataSource.hasOverlap(chaletId, startDate, endDate);
+  }
+
+  @override
+  Future<void> cancelBooking(int bookingId, {required bool refund}) {
+    return _localDataSource.cancelBooking(bookingId, refund: refund);
   }
 
   @override
@@ -104,36 +135,36 @@ class ChaletRepositoryImpl implements ChaletRepository {
   Future<double> getTotalPaidAcrossAllChalets() {
     return _localDataSource.getTotalPaidAcrossAllChalets();
   }
-   @override
-@override
-Future<List<BookingEntity>> getBookingsForChalet(int chaletId) async {
-  final models = await _localDataSource.getBookingsForChalet(chaletId);
-
-  final entities = <BookingEntity>[];
-  for (final m in models) {
-    final totalPaid = await _localDataSource.getTotalPaidForBooking(m.id!);
-    entities.add(BookingEntity(
-      id: m.id,
-      chaletId: m.chaletId,
-      startDate: m.startDate,
-      endDate: m.endDate,
-      totalPrice: m.totalPrice,
-      notes: m.notes,
-      createdAt: m.createdAt,
-      totalPaid: totalPaid,
-      isCancelled: m.isCancelled, 
-    ));
-  }
-  return entities;
-}
 
   @override
-  Future<bool> hasOverlap(int chaletId, DateTime startDate, DateTime endDate) {
-    return _localDataSource.hasOverlap(chaletId, startDate, endDate);
+  Future<int> addChaletExpense(ChaletExpenseEntity expense) {
+    return _localDataSource.addChaletExpense(
+      ChaletExpenseModel(
+        chaletId: expense.chaletId,
+        amount: expense.amount,
+        description: expense.description,
+        createdAt: expense.createdAt,
+      ),
+    );
   }
 
   @override
-  Future<void> cancelBooking(int bookingId, {required bool refund}) {
-    return _localDataSource.cancelBooking(bookingId, refund: refund);
+  Future<List<ChaletExpenseEntity>> getExpensesForChalet(int chaletId) async {
+    final models = await _localDataSource.getExpensesForChalet(chaletId);
+    return models
+        .map((m) => ChaletExpenseEntity(
+              id: m.id,
+              chaletId: m.chaletId,
+              amount: m.amount,
+              description: m.description,
+              createdAt: m.createdAt,
+              isCancelled: m.isCancelled,
+            ))
+        .toList();
+  }
+
+  @override
+  Future<void> cancelChaletExpense(int expenseId) {
+    return _localDataSource.cancelChaletExpense(expenseId);
   }
 }
